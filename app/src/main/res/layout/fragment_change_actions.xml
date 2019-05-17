@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".ChangeActions">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- button container -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="25dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <!-- this is also a button container but allows for left centering-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:paddingEnd="10dp"
+                android:text="@string/start_over" />
+
+            <!-- centers the right button to the right-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end">
+
+                <Button
+                    android:id="@+id/button12"
+                    android:layout_width="163dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_amount" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!-- text layout container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="93dp"
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:text="@string/correct_change_count" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorGreen"
+            android:textSize="25sp"
+            android:text="@string/denomination_0" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

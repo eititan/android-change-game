@@ -1,5 +1,7 @@
 package com.example.cs3270a5;
 
+import android.os.CountDownTimer;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar; //use this not android widget to support the backwards compatible toolbar
@@ -9,13 +11,23 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FragmentManager fragMan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //As we have the ChangeResults as a fragment and not as a
+        //fragment and not a FrameLayout, we do not need to add it here
+//        fragMan = getSupportFragmentManager();
+//        fragMan.beginTransaction()
+//                .replace(R.id.fragChangeResults, new ChangeResults(), "fragChangeResults")
+//                .commit();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); //use setSupportActionBar for backwards compatibility
+
     }
 
     @Override
@@ -41,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
 
     }
 }

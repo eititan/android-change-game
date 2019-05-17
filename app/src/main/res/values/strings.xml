@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">CS3270A5 Hutchins</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="results_timeRemaining">Time Remaining</string>
+    <string name="results_title">Practice Making Change</string>
+    <string name="results_changeToMake">Change To Make</string>
+    <string name="results_ChangeTotalSoFar">Change Total So Far</string>
+    <string name="money_placeholder">----</string>
+    <string name="start_over">Start Over</string>
+    <string name="new_amount">New Amount</string>
+    <string name="correct_change_count">Correct Change Count</string>
+
+    <!-- denomination button strings -->
+    <string name="denomination_0">0</string>
+    <string name="denomination_50_dollar">$50</string>
+    <string name="denomination_20_dollar">$20</string>
+    <string name="denomination_10_dollar">$10</string>
+    <string name="denomination_5_dollar">$5</string>
+    <string name="denomination_1_dollar">$1</string>
+    <string name="denomination_50">.50</string>
+    <string name="denomination_25">.25</string>
+    <string name="denomination_10">.10</string>
+    <string name="denomination_05">.05</string>
+    <string name="denomination_01">.01</string>
+
 </resources>

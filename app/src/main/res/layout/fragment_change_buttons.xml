@@ -1,14 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChangeButtons">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <!-- top denomination row -->
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:weightSum="5">
 
-</FrameLayout>
+        <Button
+            android:id="@+id/btn_50_dollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_50_dollar"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_20_dollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_20_dollar"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_10_dollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_10_dollar"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_5_dollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_5_dollar"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_1_dollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_1_dollar"
+            android:layout_weight="1"/>
+    </TableRow>
+
+    <!-- bottom denomination row -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="5">
+
+        <Button
+            android:id="@+id/btn_.50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_50"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_.25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_25"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_.10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_10"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_.05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_05"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_.01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/denomination_01"
+            android:layout_weight="1"/>
+    </TableRow>
+
+</TableLayout>
