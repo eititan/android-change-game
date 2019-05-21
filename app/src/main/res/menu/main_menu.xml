@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/action_menuZeroCorrectCount"
-        android:title="Zero Correct Count"
+        android:title="@string/mainMenu_ZeroCorrectCount"
         app:showAsAction="never" />
 
-        <item
+    <item
         android:id="@+id/action_menuSetMaxChange"
-        android:title="Set Change Max"
+        android:title="@string/mainMenu_SetChangeMax"
         app:showAsAction="never" />
 </menu>

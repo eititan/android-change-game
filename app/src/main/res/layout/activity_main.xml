@@ -19,26 +19,31 @@
         android:elevation="4dp"/>
 
 
-    <fragment
-        android:id="@+id/fragChangeResults"
-        android:name="com.example.cs3270a5.ChangeResults"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/fragChangeResults"
         tools:layout="@layout/fragment_change_results" />
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragChangeButtons"
-        android:name="com.example.cs3270a5.ChangeButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_change_buttons" />
 
-    <fragment
-        android:id="@+id/fragChangeActions"
-        android:name="com.example.cs3270a5.ChangeActions"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/fragChangeActions"
         tools:layout="@layout/fragment_change_actions" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragChangeMaxChange"
+        tools:layout="@layout/fragment_change_max_amount" />
+
 
 
 </LinearLayout>

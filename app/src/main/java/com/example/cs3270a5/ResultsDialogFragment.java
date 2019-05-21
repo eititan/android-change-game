@@ -16,18 +16,28 @@ import android.support.v4.app.Fragment;
  */
 public class ResultsDialogFragment extends DialogFragment {
 
+    private String title;
+    private String message;
 
     public ResultsDialogFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void setArguments(@Nullable Bundle args) {
+        super.setArguments(args);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        savedInstanceState = getArguments();
+        title = savedInstanceState.getString("title", "Something Went wrong :(");
+        message = savedInstanceState.getString("message", "Something Went Wrong :(");
         //builder allows us to get the options and get activity allows us to put it on top of all content
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Try again!")
-                .setTitle("Out of time!")
+        builder.setMessage(message)
+                .setTitle(title)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

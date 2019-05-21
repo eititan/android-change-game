@@ -55,35 +55,35 @@
         android:weightSum="5">
 
         <Button
-            android:id="@+id/btn_.50"
+            android:id="@+id/btn_50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/denomination_50"
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/btn_.25"
+            android:id="@+id/btn_25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/denomination_25"
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/btn_.10"
+            android:id="@+id/btn_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/denomination_10"
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/btn_.05"
+            android:id="@+id/btn_05"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/denomination_05"
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/btn_.01"
+            android:id="@+id/btn_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/denomination_01"

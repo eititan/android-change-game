@@ -6,7 +6,7 @@
     <string name="results_title">Practice Making Change</string>
     <string name="results_changeToMake">Change To Make</string>
     <string name="results_ChangeTotalSoFar">Change Total So Far</string>
-    <string name="money_placeholder">----</string>
+    <string name="money_placeholder">0.00</string>
     <string name="start_over">Start Over</string>
     <string name="new_amount">New Amount</string>
     <string name="correct_change_count">Correct Change Count</string>
@@ -23,5 +23,11 @@
     <string name="denomination_10">.10</string>
     <string name="denomination_05">.05</string>
     <string name="denomination_01">.01</string>
+    <string name="btn_save">Save</string>
+    <string name="max_amount_message">Please use the seek bar to update max change amount</string>
+    <string name="max_amount">Max Amount</string>
+    <string name="default_max_value">1.00</string>
+    <string name="mainMenu_ZeroCorrectCount">Zero Correct Count</string>
+    <string name="mainMenu_SetChangeMax">Set Change Max</string>
 
 </resources>
