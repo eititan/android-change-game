@@ -18,7 +18,7 @@
         app:titleTextColor="@android:color/white"
         android:elevation="4dp"/>
 
-
+    <!-- used FrameLayout as our fragment container so we can hide and show fragments -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragChangeMaxChange"
+        android:id="@+id/fragChangeMaxAmount"
         tools:layout="@layout/fragment_change_max_amount" />
 
 

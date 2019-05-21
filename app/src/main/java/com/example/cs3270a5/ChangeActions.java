@@ -19,7 +19,6 @@ import android.widget.TextView;
 public class ChangeActions extends Fragment {
 
     private View root;
-    private Button btnStartOver, btnNewAmount;
     private TextView txtChangeCorrect;
     private int userCorrectCount = 0;
 
@@ -69,7 +68,7 @@ public class ChangeActions extends Fragment {
     public void onResume() {
         super.onResume();
 
-        btnStartOver = (Button) root.findViewById(R.id.btnStartOver);
+        Button btnStartOver = (Button) root.findViewById(R.id.btnStartOver);
         btnStartOver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +76,7 @@ public class ChangeActions extends Fragment {
             }
         });
 
-        btnNewAmount = (Button) root.findViewById(R.id.btnNewAmount);
+        Button btnNewAmount = (Button) root.findViewById(R.id.btnNewAmount);
         btnNewAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

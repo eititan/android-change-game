@@ -2,34 +2,22 @@ package com.example.cs3270a5;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Random;
-
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -39,7 +27,7 @@ import static android.content.ContentValues.TAG;
 public class ChangeResults extends Fragment {
 
     private View root;
-    private Locale defaultLocale = Resources.getSystem().getConfiguration().locale;
+    private Locale defaultLocale = Resources.getSystem().getConfiguration().locale;         //format our money to the current locations denomination
     private NumberFormat numFormat = NumberFormat.getCurrencyInstance(defaultLocale);
     private Random randChange = new Random();
     private TextView txtCountdown, txtChangeToMake, txtUserChangeTotal;
@@ -47,13 +35,14 @@ public class ChangeResults extends Fragment {
     private DecimalFormat dfChangeToMake = new DecimalFormat("#.##");   //format for the money
     private BigDecimal bdChangeToMake, bdUserChangeTotal;
     private CountDownTimer countDownTimer;
-    private double rangeMax;
-
 
     private UpdateCorrectCount mCallback;
     interface UpdateCorrectCount {
         void updateUserCorrectCount();
         int getRange();
+        void setUserTotalZero();
+        void disableMoneyButtons();
+        void enableMoneyButtons();
     }
 
     public ChangeResults() {
@@ -88,7 +77,6 @@ public class ChangeResults extends Fragment {
         SharedPreferences.Editor spEdit = sp.edit();
         //queuing for a commit
         spEdit.putString("changeToMake", String.valueOf(bdChangeToMake.doubleValue()));
-        Log.d(TAG, "onPause: " + String.valueOf(bdChangeToMake.doubleValue()));
         //apply to disk
         spEdit.apply();
         countDownTimer.cancel(); //Added bc null referenced we being called after old frag was destroyed so I destroy everytime when it's frag dies
@@ -110,7 +98,8 @@ public class ChangeResults extends Fragment {
 
             @Override
             public void onFinish() {
-               createDialog("You took too long", "You should try again");
+               createDialog(getResources().getString(R.string.too_long_title), getResources().getString(R.string.try_again_message));
+               mCallback.disableMoneyButtons();
             }
 
         }.start();
@@ -118,7 +107,6 @@ public class ChangeResults extends Fragment {
         SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
         String tempChange = sp.getString("changeToMake", "0.00");
         bdChangeToMake = new BigDecimal(dfChangeToMake.format(Double.parseDouble(tempChange)));
-        Log.d(TAG, "onResume: " + tempChange);
 
         txtChangeToMake = (TextView) root.findViewById(R.id.txt_changeToMakeOutput);
         if(txtChangeToMake!=null){
@@ -128,12 +116,10 @@ public class ChangeResults extends Fragment {
     }
 
     public void generateRandomChange(){
-        rangeMax = mCallback.getRange();
+        double rangeMax = mCallback.getRange();
         double randomValue = 0 + (rangeMax - 0) * randChange.nextDouble();
-
         bdChangeToMake = new BigDecimal(dfChangeToMake.format(randomValue));
 
-        Log.d(TAG, "generateRandomChange: " + rangeMax);
         txtChangeToMake = (TextView) root.findViewById(R.id.txt_changeToMakeOutput);
         if(txtChangeToMake != null){
             txtChangeToMake.setText(numFormat.format(bdChangeToMake.doubleValue()));
@@ -141,39 +127,46 @@ public class ChangeResults extends Fragment {
     }
 
     public void updateUserChangeTotal(double userTotal){
-        txtUserChangeTotal = (TextView) root.findViewById(R.id.txt_ChangeTotalSoFarOutput);
         bdUserChangeTotal = new BigDecimal(dfChangeToMake.format(userTotal));
-        Log.d(TAG, "updateUserChangeTotal: " + dfChangeToMake.format(userTotal));
-
+        txtUserChangeTotal = (TextView) root.findViewById(R.id.txt_ChangeTotalSoFarOutput);
+        //set our Change Total So Far when our user clicks one of the change buttons
         if(txtUserChangeTotal != null){
             txtUserChangeTotal.setText(numFormat.format(bdUserChangeTotal.doubleValue()));
         }
 
-
-        Log.d(TAG, "updateUserChangeTotal: bdUser" + bdUserChangeTotal.doubleValue());
-        Log.d(TAG, "updateUserChangeTotal: bdChange" + bdChangeToMake.doubleValue());
-        if((bdUserChangeTotal != null && bdChangeToMake != null) && bdUserChangeTotal.doubleValue() == bdChangeToMake.doubleValue()){
-
-            createDialog("You did it!", "You were able to make the correct change");
+        //winning statement and our change too high case
+        //last && statement controls for the first time the app is used on both statements
+        if((bdUserChangeTotal != null && bdChangeToMake != null) && bdUserChangeTotal.doubleValue() == bdChangeToMake.doubleValue() && (bdChangeToMake.doubleValue() > 0)){
+            createDialog(getResources().getString(R.string.success_title), getResources().getString(R.string.success_message));
             countDownTimer.cancel();
             mCallback.updateUserCorrectCount();
+            mCallback.disableMoneyButtons();
 
-        }else if((bdUserChangeTotal != null && bdChangeToMake != null) && (bdUserChangeTotal.doubleValue() > bdChangeToMake.doubleValue())){
-            createDialog("That's too much change.", "You should try again");
+        }else if((bdUserChangeTotal != null && bdChangeToMake != null) && (bdUserChangeTotal.doubleValue() > bdChangeToMake.doubleValue()) && (bdChangeToMake.doubleValue() > 0)){
+            createDialog(getResources().getString(R.string.too_much_title), getResources().getString(R.string.try_again_message));
             countDownTimer.cancel();
+            mCallback.disableMoneyButtons();
         }
     }
 
     public void resetGame(){
         countDownTimer.cancel();
         countDownTimer.start();
+        mCallback.enableMoneyButtons();
     }
 
     public void resetGameAndAmount(){
         generateRandomChange();
         resetGame();
+        mCallback.enableMoneyButtons();
+
     }
 
+    /**
+     * helper method that creates a dialog box with the given title and message
+     * @param title title to be in the dialog box
+     * @param message message to be put in the dialog box
+     */
     private void createDialog(String title, String message){
         Bundle messageBundle = new Bundle();
         messageBundle.putString("title", title);
@@ -184,6 +177,9 @@ public class ChangeResults extends Fragment {
         dialogChangeActions.setCancelable(false);
         dialogChangeActions.show(getActivity().getSupportFragmentManager(), "time_expired");
 
+        //reset our user change to make total and out timer to 0 when dialog is called
+        mCallback.setUserTotalZero();
+        countDownTimer.onTick(0);
     }
 }
 

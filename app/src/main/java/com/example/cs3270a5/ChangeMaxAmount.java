@@ -15,7 +15,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -26,19 +25,17 @@ import java.util.Locale;
 public class ChangeMaxAmount extends Fragment {
 
     private View root;
-    private SeekBar seekBar;
+    private SeekBar seekBar; //seekBar used to control user input and change max change
     private Locale defaultLocale = Resources.getSystem().getConfiguration().locale;
     private NumberFormat numFormat = NumberFormat.getCurrencyInstance(defaultLocale);
-    private DecimalFormat dfMaxAmount = new DecimalFormat("###.00");   //format for the money
-    private Button btnSave;
     private TextView txtMaxAmount;
-
+    private final int minRange = 1; //set the lowest we can go on our seekbar
     private BigDecimal bdMaxAmount;
 
-    private UpdateMaxRange mCallback;
+    private DisplayMainView mCallback;
 
-    interface UpdateMaxRange {
-        void updateRange(int newRange);
+    interface DisplayMainView {
+        void displayMainView();
     }
 
     public ChangeMaxAmount() {
@@ -50,10 +47,10 @@ public class ChangeMaxAmount extends Fragment {
         super.onAttach(activity);
 
         try{
-            mCallback = (UpdateMaxRange) activity;
+            mCallback = (DisplayMainView) activity;
         }catch (ClassCastException e){
             throw new ClassCastException(activity.toString()
-                    + " must implement the onSeekChanged Interface");
+                    + " must implement the DisplayMainView Interface");
         }
     }
 
@@ -81,11 +78,11 @@ public class ChangeMaxAmount extends Fragment {
     public void onResume() {
         super.onResume();
 
-        btnSave = (Button) root.findViewById(R.id.btn_SaveMaxAmount);
+        Button btnSave = (Button) root.findViewById(R.id.btn_SaveMaxAmount);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallback.updateRange(seekBar.getProgress()+1);
+                mCallback.displayMainView();
 
             }
         });
@@ -118,7 +115,7 @@ public class ChangeMaxAmount extends Fragment {
         seekBar.setProgress(sp.getInt("seekBar", 30));
         txtMaxAmount = (TextView) root.findViewById(R.id.txt_maxValue);
 
-        bdMaxAmount = new BigDecimal(seekBar.getProgress()+1);
+        bdMaxAmount = new BigDecimal(seekBar.getProgress()+ minRange);
         if(txtMaxAmount != null){
             txtMaxAmount.setText(numFormat.format(bdMaxAmount));
         }
@@ -126,6 +123,6 @@ public class ChangeMaxAmount extends Fragment {
     }
 
     public int getRange(){
-        return seekBar.getProgress()+1;
+        return seekBar.getProgress()+ minRange;
     }
 }

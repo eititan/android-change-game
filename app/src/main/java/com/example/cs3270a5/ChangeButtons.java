@@ -14,6 +14,8 @@ import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
+ * implements an OnClickListener which allows us to only have 1 listener for the 10 buttons
+ * in this fragment
  */
 public class ChangeButtons extends Fragment implements View.OnClickListener {
 
@@ -21,8 +23,9 @@ public class ChangeButtons extends Fragment implements View.OnClickListener {
     private Button dollar50, dollar20, dollar10, dollar5, dollar1,
                     cent50, cent25, cent10, cent5, cent1;
     private double userTotal;
-    private UpdateValues mCallback;
 
+    //interface
+    private UpdateValues mCallback;
     interface UpdateValues {
         void updateChange(double userTotal);
     }
@@ -61,6 +64,7 @@ public class ChangeButtons extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
+        //reinitializing all buttons and listeners for those buttons
         dollar50 = (Button) root.findViewById(R.id.btn_50_dollar);
         dollar20 = (Button) root.findViewById(R.id.btn_20_dollar);
         dollar10 = (Button) root.findViewById(R.id.btn_10_dollar);
@@ -83,6 +87,7 @@ public class ChangeButtons extends Fragment implements View.OnClickListener {
         cent5.setOnClickListener(this);
         cent1.setOnClickListener(this);
 
+        //getting our stored value
         SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
         userTotal = (double) sp.getLong("userTotal", 0L);
         mCallback.updateChange(userTotal);
@@ -97,6 +102,10 @@ public class ChangeButtons extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * interface class that allows us to have 1 listener for 10 buttons
+     * @param v the button that was just clicked
+     */
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -151,5 +160,37 @@ public class ChangeButtons extends Fragment implements View.OnClickListener {
     public void resetUserTotal(){
         userTotal = 0;
         mCallback.updateChange(userTotal);
+    }
+
+    /**
+     * disables all buttons in this fragment
+     */
+    public void disableAllMoneyButtons(){
+        dollar50.setEnabled(false);
+        dollar20.setEnabled(false);
+        dollar10.setEnabled(false);
+        dollar5.setEnabled(false);
+        dollar1.setEnabled(false);
+        cent50.setEnabled(false);
+        cent25.setEnabled(false);
+        cent10.setEnabled(false);
+        cent5.setEnabled(false);
+        cent1.setEnabled(false);
+    }
+
+    /**
+     * enables all buttons in this fragment
+     */
+    public void enableAllMoneyButtons(){
+        dollar50.setEnabled(true);
+        dollar20.setEnabled(true);
+        dollar10.setEnabled(true);
+        dollar5.setEnabled(true);
+        dollar1.setEnabled(true);
+        cent50.setEnabled(true);
+        cent25.setEnabled(true);
+        cent10.setEnabled(true);
+        cent5.setEnabled(true);
+        cent1.setEnabled(true);
     }
 }
