@@ -177,8 +177,8 @@ public class ChangeResults extends Fragment {
         dialogChangeActions.setCancelable(false);
         dialogChangeActions.show(getActivity().getSupportFragmentManager(), "time_expired");
 
-        //reset our user change to make total and out timer to 0 when dialog is called
-        mCallback.setUserTotalZero();
+        //reset our timer to 0 when dialog is called
+
         countDownTimer.onTick(0);
     }
 }

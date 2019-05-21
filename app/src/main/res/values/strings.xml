@@ -35,5 +35,7 @@
     <string name="too_much_title">That\'s too much change.</string>
     <string name="try_again_message">You should try again</string>
     <string name="too_long_title">You took too long</string>
+    <string name="toast_count_reset">Count Reset</string>
+    <string name="dialog_button">OK</string>
 
 </resources>

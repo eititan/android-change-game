@@ -1,8 +1,10 @@
 package com.example.cs3270a5;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +22,24 @@ public class ResultsDialogFragment extends DialogFragment {
     private String title;
     private String message;
 
+    private ResetChangeAfterDialog mCallback;
+    interface ResetChangeAfterDialog{
+        void resetChangeAfterDialog();
+    }
     public ResultsDialogFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try{
+            mCallback = (ResetChangeAfterDialog) activity;
+        }catch (ClassCastException e){
+            throw new ClassCastException(activity.toString()
+                    + " must implement the ResetChangeAfterDialog Interface");
+        }
     }
 
     @Override
@@ -45,10 +63,10 @@ public class ResultsDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(message)
                 .setTitle(title)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.dialog_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO reset our labels and stuff
+                        mCallback.resetChangeAfterDialog();
                     }
                 });
 

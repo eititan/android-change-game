@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar; //use this not android widget to support the backwards compatible toolbar
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements
         ChangeButtons.UpdateValues,
         ChangeActions.RestartGame,
         ChangeResults.UpdateCorrectCount,
-        ChangeMaxAmount.DisplayMainView{
+        ChangeMaxAmount.DisplayMainView,
+        ResultsDialogFragment.ResetChangeAfterDialog {
 
     private FragmentManager fragMan;
     private ChangeResults changeResultsFrag;
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements
 
                 if(changeActionsFrag != null){
                     changeActionsFrag.resetUserCorrectNum();
+
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_count_reset), Toast.LENGTH_SHORT).show();
                 }
                 return true;
 
@@ -229,6 +233,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
+     * interface from ResultsDialogFragment
+     * Resets change total so far after the dialog box ok is clicked on
+     */
+    @Override
+    public void resetChangeAfterDialog() {
+       setUserTotalZero();
+    }
+
+    /**
      * Reinitialises all fragments and removes the changeResultsFrag
      * due to the timer not being destroyed when the view would change.
      * This would cause the timer to keep going and display a message when it is complete
@@ -266,5 +279,6 @@ public class MainActivity extends AppCompatActivity implements
         changeActionsFrag = (ChangeActions) fragMan.findFragmentById(R.id.fragChangeActions);
         changeButtonsFrag = (ChangeButtons) fragMan.findFragmentById(R.id.fragChangeButtons);
     }
+
 
 }
